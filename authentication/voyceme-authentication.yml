@@ -1,0 +1,34 @@
+generated: '2026-07-21'
+method: searched
+source: live probe of https://graphql.voyce.me/v1/graphql + https://playengine.voyce.me/developers/
+summary:
+  types: [none, http]
+  api_key_in: [header]
+  oauth2_flows: []
+notes: >-
+  VoyceMe exposes a public Hasura GraphQL endpoint at https://graphql.voyce.me/v1/graphql.
+  Read queries and the public insert mutations (contact_us, newsletter, popup_emails,
+  search_history, giveaway participants, CSAT, chatbot conversations/messages, feedback,
+  user_creations) execute against Hasura's anonymous role and require NO authentication
+  (verified: an unauthenticated query returned live voyce_series and blog_posts data).
+  Privileged/admin access to the same Hasura instance uses the standard Hasura auth model
+  (x-hasura-admin-secret header or a JWT bearer carrying x-hasura-* session claims) but no
+  admin surface is publicly documented. The Play Engine developer product
+  (https://playengine.voyce.me/developers/) uses a bearer API token (a "demo" token is
+  referenced in the public app config) for its REST character/chat endpoints.
+schemes:
+  - name: anonymous
+    type: none
+    description: Hasura anonymous role; public read + public form-insert mutations, no credential.
+    sources: [graphql/voyceme-graphql.graphql]
+  - name: HasuraAdminSecret
+    type: apiKey
+    in: header
+    parameter_name: x-hasura-admin-secret
+    description: Hasura admin secret for privileged access (not publicly provisioned).
+    sources: [graphql/voyceme-graphql.graphql]
+  - name: PlayEngineBearer
+    type: http
+    scheme: bearer
+    description: Bearer API token for Play Engine REST endpoints (api/character-create, playengine/chat).
+    sources: [https://playengine.voyce.me/developers/]

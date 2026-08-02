@@ -1,0 +1,32 @@
+generated: '2026-07-21'
+method: derived
+source: graphql/voyceme-graphql.graphql (Hasura GraphQL error convention)
+format: graphql-errors
+envelope:
+  transport_status: 200
+  shape: '{ "errors": [ { "message": "...", "extensions": { "path": "$", "code": "<code>" } } ] }'
+  notes: >-
+    VoyceMe runs Hasura; errors are returned as a top-level GraphQL "errors" array (HTTP 200),
+    not RFC 9457 problem+json. Each error carries a human "message" and an "extensions.code".
+    Codes below are the standard Hasura error codes; one (not-supported) was observed live when
+    a persisted-query hash was sent without the query body.
+problems:
+  - code: validation-failed
+    meaning: The GraphQL document failed validation (unknown field, wrong argument type, bad selection).
+    remediation: Fix the query against graphql/voyceme-graphql.graphql before resending.
+  - code: not-supported
+    meaning: Operation not supported (e.g. PersistedQueryNotSupported when only a query hash is sent).
+    remediation: Send the full GraphQL query string in the request body.
+    observed: true
+  - code: constraint-violation
+    meaning: A mutation violated a database constraint (unique/foreign-key/not-null).
+    remediation: Ensure inserted values satisfy uniqueness and referential integrity.
+  - code: permission-error
+    meaning: The current (anonymous) role is not permitted to run the requested field.
+    remediation: Only public reads and the whitelisted insert mutations are available anonymously.
+  - code: data-exception
+    meaning: A value could not be coerced to the column type.
+    remediation: Correct the argument types (e.g. Int vs String) per the schema.
+  - code: parse-failed
+    meaning: The request body was not a parseable GraphQL document.
+    remediation: Send valid GraphQL in the "query" field of a JSON POST body.

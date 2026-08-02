@@ -1,0 +1,24 @@
+generated: '2026-07-21'
+method: searched
+source: live probes 2026-07-21
+notes: >-
+  Probed the /.well-known/ discovery surface on all VoyceMe hosts. No documents were served
+  (www.voyce.me + graphql.voyce.me + playengine.voyce.me all 404; apex voyce.me 301-redirects
+  to www). Recorded as an honest empty result — nothing to index, no WellKnown pointer emitted.
+hosts:
+  - host: https://www.voyce.me
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+  - host: https://graphql.voyce.me
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+  - host: https://playengine.voyce.me
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}

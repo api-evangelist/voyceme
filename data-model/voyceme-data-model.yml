@@ -1,0 +1,111 @@
+generated: '2026-07-21'
+method: derived
+source: graphql/voyceme-graphql.graphql (live Hasura introspection)
+notes: >-
+  Entity-relationship graph derived from the VoyceMe Hasura GraphQL schema. 101 voyce_* core
+  entities (queryable by primary key), plus storypack_*/storytech_* AI-character entities and
+  blog_* content entities. Relationships below are the marquee comics-platform graph derived
+  from GraphQL object/array fields and *_id foreign-key columns. IDs are integer primary keys
+  (uuid for conversations).
+namespaces:
+  - name: voyce
+    entities: 101
+    domain: manga/webtoon/web-novel publishing platform (series, chapters, panels, users, engagement)
+  - name: storypack
+    domain: AI character "chatbots", conversations, galleries, sagas, remix, plays
+  - name: storytech
+    domain: AI generation — chatbots, adventure flows, card styles, community creations, backgrounds
+  - name: blog
+    domain: editorial blog (posts, authors, categories)
+entities:
+  - name: voyce_series
+    key: id
+    description: A manga/webtoon/web-novel title.
+  - name: voyce_chapters
+    key: id
+    description: A chapter within a series.
+  - name: voyce_chapter_panels
+    key: id
+    description: An image panel within a chapter.
+  - name: voyce_users
+    key: id
+    description: A reader or creator account.
+  - name: voyce_author_profiles
+    key: id
+    description: Extended creator profile for a user.
+  - name: voyce_series_subscription
+    key: id
+    description: A user following/subscribing to a series.
+  - name: voyce_chapter_likes
+    key: id
+    description: A like on a chapter by a user.
+  - name: voyce_chapter_comments
+    key: id
+    description: A comment on a chapter.
+  - name: voyce_series_tags
+    key: id
+    description: Join row linking a series to a tag.
+  - name: voyce_tags
+    key: id
+    description: A content tag.
+relationships:
+  - from: voyce_series
+    to: voyce_users
+    type: belongs_to
+    via: user_id
+    field: author
+  - from: voyce_series
+    to: voyce_chapters
+    type: has_many
+    via: series_id
+    field: chapters
+  - from: voyce_chapters
+    to: voyce_series
+    type: belongs_to
+    via: series_id
+    field: series
+  - from: voyce_chapters
+    to: voyce_chapter_panels
+    type: has_many
+    via: chapter_id
+    field: chapter_panels
+  - from: voyce_chapters
+    to: voyce_chapter_comments
+    type: has_many
+    via: chapter_id
+    field: chapter_comments
+  - from: voyce_chapters
+    to: voyce_chapter_likes
+    type: has_many
+    via: chapter_id
+    field: likes
+  - from: voyce_series
+    to: voyce_series_subscription
+    type: has_many
+    via: series_id
+    field: followers
+  - from: voyce_series_subscription
+    to: voyce_users
+    type: belongs_to
+    via: user_id
+    field: user
+  - from: voyce_series_tags
+    to: voyce_series
+    type: belongs_to
+    via: series_id
+    field: series
+  - from: voyce_series_tags
+    to: voyce_tags
+    type: belongs_to
+    via: tag_id
+    field: tag
+  - from: voyce_author_profiles
+    to: voyce_users
+    type: belongs_to
+    via: user_id
+    field: user
+  - from: voyce_chapter_likes
+    to: voyce_chapters
+    type: belongs_to
+    via: chapter_id
+    field: chapter

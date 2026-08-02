@@ -1,0 +1,52 @@
+generated: '2026-07-21'
+method: searched
+source: derived from live https://graphql.voyce.me/v1/graphql (Hasura GraphQL) semantics
+api_style: graphql
+transport:
+  protocol: GraphQL over HTTP
+  endpoint: https://graphql.voyce.me/v1/graphql
+  method: POST
+  content_type: application/json
+authentication:
+  ref: authentication/voyceme-authentication.yml
+  summary: anonymous Hasura role for public reads and public form inserts.
+pagination:
+  style: limit-offset
+  params:
+    limit: Int
+    offset: Int
+  notes: >-
+    Every list query (Hasura auto-generated) accepts limit + offset. There is no cursor
+    or relay-connection pagination; total counts are available via the parallel
+    <entity>_aggregate { aggregate { count } } queries.
+filtering:
+  style: hasura-bool-exp
+  param: where
+  notes: >-
+    Rich boolean expression filtering via <entity>_bool_exp input objects supporting
+    _eq/_neq/_gt/_lt/_gte/_lte/_in/_nin/_like/_ilike/_is_null and _and/_or/_not.
+ordering:
+  style: hasura-order-by
+  param: order_by
+  notes: order_by accepts [<entity>_order_by!] with asc/desc/asc_nulls_first/etc enums per column.
+selection:
+  style: graphql-field-selection
+  notes: Sparse fieldsets are native to GraphQL; nested object/array relationships are traversable inline.
+idempotency:
+  supported: false
+  notes: >-
+    No idempotency-key header contract. Public mutations are insert-only form submissions
+    (contact_us, newsletter, popup_emails, CSAT, feedback); retries create duplicate rows.
+error_envelope:
+  style: graphql-errors
+  ref: errors/voyceme-problem-types.yml
+  notes: >-
+    HTTP 200 with a top-level "errors":[{message, extensions:{path, code}}] array on failure
+    (Hasura/GraphQL convention). "code" values include validation-failed, constraint-violation,
+    not-supported, permission-error, data-exception.
+versioning:
+  scheme: none-observed
+  notes: Endpoint path is /v1/graphql; no dated or header-based API versioning documented.
+rate_limiting:
+  signaled: false
+  notes: No documented rate-limit headers observed on the public endpoint.

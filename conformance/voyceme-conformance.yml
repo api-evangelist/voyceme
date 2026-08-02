@@ -1,0 +1,28 @@
+generated: '2026-07-21'
+method: derived
+source: graphql/voyceme-graphql.graphql (live Hasura introspection) + endpoint probes
+standards:
+  - id: graphql-june-2018
+    conforms: true
+    evidence: Endpoint answers a spec introspection query; query_root/mutation_root/subscription_root present.
+  - id: graphql-introspection
+    conforms: true
+    evidence: __schema introspection is enabled on the public endpoint.
+  - id: graphql-subscriptions
+    conforms: true
+    evidence: subscription_root exposes 493 subscription fields (Hasura live queries over WebSocket).
+  - id: hasura-graphql-engine
+    conforms: true
+    evidence: Auto-generated *_by_pk, *_aggregate, *_bool_exp, *_order_by, insert_* mutation shapes.
+  - id: relay-connection-pagination
+    conforms: false
+    evidence: Uses limit/offset, not cursor/connection pagination.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Errors use the GraphQL errors[] envelope (HTTP 200), not application/problem+json.
+  - id: oauth2
+    conforms: false
+    evidence: No OAuth2 security scheme; anonymous Hasura role for public access.
+  - id: openapi
+    conforms: false
+    evidence: No REST OpenAPI published; the public contract is GraphQL.

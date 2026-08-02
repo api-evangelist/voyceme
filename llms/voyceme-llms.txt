@@ -1,0 +1,23 @@
+# VoyceMe
+
+> VoyceMe is a North American manga, webtoon, and web-novel creator platform (voyce.me) where independent creators publish serialized comics and novels and readers discover, follow, and support them. It also runs an AI-character product line (Play Engine / "storypack" and "storytech") for world-model-grounded playable characters. VoyceMe operates a public, unauthenticated Hasura GraphQL API exposing its catalog of series, chapters, users, engagement, blog content, and AI chatbots.
+
+## API
+- [GraphQL endpoint](https://graphql.voyce.me/v1/graphql): Public Hasura GraphQL API (anonymous role). 332 queries, 21 public insert mutations, 493 subscriptions across the voyce_/storypack_/storytech_/blog_ namespaces. POST application/json, no auth for reads.
+- [Play Engine developers](https://playengine.voyce.me/developers/): AI-character runtime — REST character/chat endpoints (bearer token).
+
+## Specs
+- [GraphQL schema (SDL)](graphql/voyceme-graphql.graphql): Full schema from live introspection.
+- [Authentication](authentication/voyceme-authentication.yml): Anonymous Hasura role for public reads/form inserts; admin secret / bearer for privileged.
+- [Conventions](conventions/voyceme-conventions.yml): limit/offset pagination, where bool_exp filtering, order_by ordering, GraphQL error envelope.
+- [Data model](data-model/voyceme-data-model.yml): series → chapters → panels; users, subscriptions, likes, comments.
+- [Error catalog](errors/voyceme-problem-types.yml): Hasura/GraphQL error codes.
+- [Conformance](conformance/voyceme-conformance.yml): GraphQL + Hasura conformance assertions.
+
+## Docs
+- [Website](https://www.voyce.me): Reader/creator platform.
+- [Creators portal](https://creators.voyce.me/): Publishing tools for creators.
+- [Blog](https://www.voyce.me/blog): Editorial blog.
+- [Terms of Use](https://www.voyce.me/pages/terms-of-use)
+- [Privacy Policy](https://www.voyce.me/pages/privacy-policy)
+- [Contact Us](https://www.voyce.me/pages/contact-us)

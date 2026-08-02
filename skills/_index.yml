@@ -1,0 +1,11 @@
+generated: '2026-07-21'
+method: generated
+skills:
+  - file: voyceme-browse-catalog.md
+    name: Browse the VoyceMe catalog
+    api: graphql/voyceme-graphql.graphql
+    operations: [voyce_series, voyce_series_by_pk, voyce_chapters]
+  - file: voyceme-ai-characters.md
+    name: Explore VoyceMe AI characters
+    api: graphql/voyceme-graphql.graphql
+    operations: [storypack_chatbots, storypack_chatbots_by_pk, storypack_chatbot_plays]
