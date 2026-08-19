@@ -2,34 +2,39 @@ generated: '2026-07-21'
 method: derived
 status: candidate
 source: graphql/voyceme-graphql.graphql (candidate tools derived from public GraphQL queries)
-notes: >-
-  No official VoyceMe MCP server was found. This is a CANDIDATE tool list derived from the
-  public read queries on the Hasura GraphQL endpoint (anonymous role) — a starting point for
-  wrapping VoyceMe's public catalog as MCP tools. Not an authoritative provider artifact.
+notes: No official VoyceMe MCP server was found. This is a CANDIDATE tool list derived from the public
+  read queries on the Hasura GraphQL endpoint (anonymous role) — a starting point for wrapping VoyceMe's
+  public catalog as MCP tools. Not an authoritative provider artifact.
 server:
   name: voyceme
   transport: http
   endpoint: https://graphql.voyce.me/v1/graphql
   auth: none (anonymous Hasura role)
 tools:
-  - name: list_series
-    description: List manga/webtoon/web-novel titles (limit/offset/where/order_by).
-    source_operation: graphql/voyceme-graphql.graphql#query_root.voyce_series
-  - name: get_series
-    description: Fetch a single series by id.
-    source_operation: graphql/voyceme-graphql.graphql#query_root.voyce_series_by_pk
-  - name: list_chapters
-    description: List chapters (filterable by series_id).
-    source_operation: graphql/voyceme-graphql.graphql#query_root.voyce_chapters
-  - name: get_chapter
-    description: Fetch a single chapter by id.
-    source_operation: graphql/voyceme-graphql.graphql#query_root.voyce_chapters_by_pk
-  - name: list_blog_posts
-    description: List editorial blog posts.
-    source_operation: graphql/voyceme-graphql.graphql#query_root.blog_posts
-  - name: list_chatbots
-    description: List storypack AI-character chatbots.
-    source_operation: graphql/voyceme-graphql.graphql#query_root.storypack_chatbots
-  - name: submit_contact
-    description: Submit a contact-us form (public insert mutation).
-    source_operation: graphql/voyceme-graphql.graphql#mutation_root.insert_voyce_contact_us_one
+- name: list_series
+  description: List manga/webtoon/web-novel titles (limit/offset/where/order_by).
+  source_operation: graphql/voyceme-graphql.graphql#query_root.voyce_series
+- name: get_series
+  description: Fetch a single series by id.
+  source_operation: graphql/voyceme-graphql.graphql#query_root.voyce_series_by_pk
+- name: list_chapters
+  description: List chapters (filterable by series_id).
+  source_operation: graphql/voyceme-graphql.graphql#query_root.voyce_chapters
+- name: get_chapter
+  description: Fetch a single chapter by id.
+  source_operation: graphql/voyceme-graphql.graphql#query_root.voyce_chapters_by_pk
+- name: list_blog_posts
+  description: List editorial blog posts.
+  source_operation: graphql/voyceme-graphql.graphql#query_root.blog_posts
+- name: list_chatbots
+  description: List storypack AI-character chatbots.
+  source_operation: graphql/voyceme-graphql.graphql#query_root.storypack_chatbots
+- name: submit_contact
+  description: Submit a contact-us form (public insert mutation).
+  source_operation: graphql/voyceme-graphql.graphql#mutation_root.insert_voyce_contact_us_one
+deployment:
+  mode: none
+  verified: derived
+  tools: 7
+  checked: '2026-08-12'
+  source: catalog MCP census
